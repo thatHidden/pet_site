@@ -1,3 +1,3 @@
 # pet_site
 
-requirements.txt soon 🥸
+requirements.txt, codere factoring soon 🥸
