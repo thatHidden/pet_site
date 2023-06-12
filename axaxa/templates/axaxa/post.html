@@ -1,0 +1,54 @@
+{% extends "axaxa/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="car-container">
+    <div class="car-info">
+        <h2 class="info-name"><p >{{ lot.brand }} {{ lot.model }} </p></h2>
+        <br>
+        <p class="info-gen">GEN: {{ post.generation }} </p>
+  <p class="info-desc">{{ post.description|truncatewords:75 }}</p>
+        <div class="info-info">
+  <p class="info-time">Ends on: {{ post.time_end }}</p>
+  <p class="info-bid">Bid: ${{ post.bid }}</p>
+        </div>
+        </div>
+{#    <img  class="car-image" src="{{post.photo.url}}">#}
+
+    </div>
+
+    <div class="comments-n-bids">
+
+        <h3>Bids & comments</h3>
+    {% if request.user.is_authenticated %}
+     <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{ form.as_p }}
+         <button type="submit" class="btn btn-success">Send</button>
+     </form>
+    {% else %}
+    <div class="not-auth">
+        <a href="{% url 'login' %}">Log in</a> <span>for leave a comment</span>
+        <br>
+        <br>
+    </div>
+    {% endif %}
+
+
+    <div class="comment-section">
+        {% for com in comments %}
+            <div class="comment">
+            <div class="comment-info">
+            <p class="comment-username"> {{ com.user.username }}</p>
+                <p> {{ com.time_create }}</p>
+                </div>
+            <p class="comment-content"> {{ com.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    </div>
+
+{% endblock %}
+

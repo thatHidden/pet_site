@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  <title> {% block title %}Доступные автомобили{% endblock %}</title>
+</head>
+<body>
+<div class="head-head">
+<div class="nav">
+      <ul>
+        <li class="nav-home"><a href="{% url 'home' %}">HOME</a></li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-auc"><a href="/addlot">START AUCTION</a></li>
+          <li class="nav-lout"><a href="/logout">LOGOUT</a></li>
+          {% else %}
+          <li class="nav-reg"><a href="/register">SIGN IN</a></li>
+          <li class="nav-loin"><a href="/login">LOG IN</a></li>
+          {% endif %}
+      </ul>
+</div>
+</div>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer">
+    <p>&copy; 2023 Salim Customs</p>
+  </footer>
+</body>
+</html>

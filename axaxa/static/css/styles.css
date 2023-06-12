@@ -1,0 +1,363 @@
+h1 {
+  margin: 0;
+}
+
+
+
+.nav ul {
+  padding-left: 0;
+}
+
+.nav li {
+  display: inline-block;
+}
+
+.head-head{
+  margin-top: -30px;
+background: rgb(131,58,180);
+background: linear-gradient(22deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 51%, rgba(252,176,69,1) 100%);
+
+  padding-bottom: 10px;
+  margin-right: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+
+.nav{
+
+  text-align: center;
+  margin: 0 auto;
+  width: 90vw;
+  overflow: hidden;
+  font-family: 'heebo', sans-serif;
+  font-weight: bold;
+  font-size: 200%;
+}
+
+.nav a {
+  color: black;
+}
+
+.nav-auc {
+  float:left;
+}
+
+.nav-lout{
+  float: right;
+}
+
+.nav-home {
+  float: left;
+  margin-right: 4vw;
+}
+
+.nav-reg {
+  float: right;
+  margin-left: 4vw;
+}
+
+.nav-loin {
+  float: right;
+
+}
+
+.head-info{
+
+}
+
+
+
+.home-lots{
+  margin-top: 2vh;
+  margin-bottom: 1.7vh;
+  text-align: center;
+  font-size: 200%;
+  font-family: 'Great Vibes', cursive;
+  font-weight: normal;
+}
+
+
+.home-input {
+  margin-left: 2%;
+  border: 0;
+  width: 80%;
+}
+
+input{
+  line-height: 0.4; !important;
+  caret-shape: block;
+}
+
+
+input:focus {
+  outline: none; /* убираем обводку при фокусе */
+  border: none; /* убираем границу при фокусе */
+}
+
+.home-search input {
+  font-family: 'heebo', sans-serif;
+  font-weight: bold;
+  font-size: 200%;
+  caret-shape: block;
+  float: left;
+}
+
+.home-search {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  padding-bottom: 2vh;
+  margin-bottom: 2vh;
+  border-bottom: 2px solid black;
+}
+
+.home-search-save {
+    font-family: 'heebo', sans-serif;
+  font-weight: bold;
+  font-size: 200%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.search-button {
+  display: flex;
+  justify-content: center;
+  padding-top: 4.5%;
+  float: right;
+  margin-right: 2%;
+  margin-top: 1%;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: background 0.5s ease;
+  background: rgb(2,0,36);
+  background: linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(55,55,209,1) 0%, rgba(120,232,255,1) 100%);
+}
+
+.gg-search {
+    box-sizing: border-box;
+    position: center;
+    display: flex;
+    transform: scale(var(--ggs,1));
+    width: 32px;
+    height: 32px;
+    border: 4px solid;
+    border-radius: 100%;
+    margin-right: 9%;
+    margin-top: -13%;
+}
+.gg-search::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 3px;
+    width: 4px;
+    height: 16px;
+    background: black;
+    transform: rotate(-45deg);
+    top: 20px;
+    left: 24px;
+}
+
+.footer {
+    background-color: darkgray;
+
+    bottom: 0;
+     left: 0;
+     width: 100%;
+     padding: 1px;
+     text-align: center;
+     min-height: 10px;
+}
+
+p {
+  overflow: hidden;
+}
+
+p {
+  position: relative;
+}
+
+p::after {
+  content: "";
+  bottom: 0;
+  right: 0;
+  height: 0.5em; /* задаем высоту псевдоэлемента */
+  width: 100%; /* задаем ширину псевдоэлемента */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%); /* задаем градиентный фон */
+}
+
+p {
+  position: relative;
+}
+
+.info-desc::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 75%; /* задаем высоту псевдоэлемента */
+  width: 100%; /* задаем ширину псевдоэлемента */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 92%); /* задаем градиентный фон */
+}
+
+
+.head_info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.car-block {
+  border: 1px solid #ccc;
+  height: 35vh;
+  display: flex;
+  padding: 1.5%;
+  margin-bottom: 20px;
+  margin-left: 3.5vw;
+  margin-right: 3.5vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  justify-content: space-between;
+}
+
+.car-block h2 {
+  font-size: 250%;
+  margin-bottom: 0px;
+}
+
+.car-block p {
+  font-size: 100%;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  position: relative;
+}
+
+a:after {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 0;
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+a:hover:after {
+  width: 100%;
+  left: initial;
+  left: 0;
+}
+
+.car-container {
+  display: flex;
+  align-items: center;
+
+}
+
+.car-info {
+  flex-grow: 1;
+  max-width: 40vw;
+  margin-left: 3vw;
+}
+
+.car-info h2 {
+  font-size: 250%;
+  font-family: 'Heebo', cursive;
+}
+
+.info-name {
+  margin-top: 3%;
+}
+
+.info-gen{
+  font-size: 250%;
+  font-family: 'Heebo',cursive;
+  font-weight: normal;
+}
+
+.info-desc {
+  font-family: 'heebo', sans-serif;
+  font-weight: normal;
+  height: 8vh;
+  text-align: justify;
+}
+
+.info-bid {
+  font-family: 'heebo', sans-serif;
+  font-weight: bold;
+}
+
+.info-time {
+    font-family: 'heebo', sans-serif;
+  font-weight: bold;
+
+}
+
+.info-info {
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5.5vh;
+
+}
+
+.car-image {
+  flex-shrink: 0;
+  /*max-width: 800px;*/
+  /*max-height: 490px ;*/
+  /*width: 100%;*/
+  /*height: auto;*/
+}
+
+.car-block {
+  position: relative;
+  opacity: 0;
+  bottom: -50px;
+}
+
+/* Создаем анимацию */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    bottom: -50px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 0;
+  }
+}
+
+/* Применяем анимацию к блоку div */
+.car-block {
+  animation: slideIn 1s ease-out forwards;
+}
+
+.comment {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-username {
+    font-weight: bold;
+}
+
+.comment-content {
+    margin-top: 5px;
+}
