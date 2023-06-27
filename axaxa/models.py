@@ -1,7 +1,10 @@
+import string, random
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 class AvailableCarList(models.Model):
@@ -43,6 +46,14 @@ class Cars(models.Model):
 
     def save(self, *args, **kwargs):
         self.bid = self.start_price
+        while True:
+            characters = string.ascii_uppercase + string.digits
+            random_string = ''.join(random.choice(characters) for _ in range(4))
+            self.slug = random_string + "-" + slugify(self.brand + "-" +
+                                                self.model + "-" +
+                                                      (self.generation if self.generation != "1" else ""))
+            if not Cars.objects.filter(slug=self.slug).exists():
+                break
         super(Cars, self).save(*args, **kwargs)
 
 

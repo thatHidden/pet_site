@@ -19,28 +19,6 @@ class SearchCar(ListView):
         return query
 
 
-# class SearchResults(ListView):
-#     model = Cars
-#     template_name = 'axaxa/home.html'
-#     context_object_name = 'lots'
-#
-#     def get_queryset(self):
-#         query = self.request.GET.get('q')
-#         if query == "":
-#             return Cars.objects.all()
-#         words = query.split(maxsplit=1)
-#         brand = words[0]
-#         model = words[1] if len(words) > 1 else "/_$"
-#         queryset = Cars.objects.filter(model__iexact=model).filter(brand__iexact=brand)
-#         if queryset is not None and model != "/_$":
-#             print(1)
-#             return queryset
-#         if model is "/_$":
-#             return Cars.objects.filter(brand__iexact=brand)
-#         if model is not "" and brand == "":
-#             return Cars.objects.filter(model__iexact=model)
-
-
 class ShowPost(DetailView, FormView):
     model = Cars
     slug_url_kwarg = 'post_slug'
@@ -89,7 +67,7 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['available'] = Cars.objects.values_list('brand', flat=True).distinct()  # distinct() - возвращает все значения поля без повторов
+        context['available'] = Cars.objects.values('brand').annotate(count=Count('id')).order_by('brand')
         return context
 
 

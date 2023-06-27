@@ -13,7 +13,7 @@
 {#</div>#}
 
     {% for brand  in available %}
-        <a href=" {% url 'search' car=brand %}">{{ brand }}</a>
+        <a href=" {% url 'search' car=brand.brand %}">{{ brand.brand }} ( {{ brand.count }} )</a>
         <br>
     {% endfor %}
     {% for lot in lots %}
