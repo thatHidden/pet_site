@@ -1,0 +1,6 @@
+{% extends "axaxa/profile_base.html" %}
+
+{% block profile_content %}
+    {{ request.user.username }}
+    {{ request.user.email }}
+{% endblock %}

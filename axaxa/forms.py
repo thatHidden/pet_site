@@ -1,11 +1,44 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 
 from axaxa.models import *
 import datetime
 import pytz
+
+
+class UpdateContactInfo(forms.ModelForm):
+    first_name = forms.RegexField(max_length=10, regex=r'^[a-zA-Z]+$', label="Name", required=False)
+    email = forms.EmailField(label="Email", required=False)
+    password = forms.PasswordInput()
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'email', 'password']
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_first_name(self):
+        data = self.cleaned_data.get('first_name')
+        if data == '':
+            return self.user.first_name
+        return data
+
+    def clean_email(self):
+        data = self.cleaned_data.get('email')
+        if data == '':
+            return self.user.email
+        return data
+
+    def clean(self):
+        if check_password(self.cleaned_data.get('password'),
+                          User.objects.get(username=self.user.username).password):
+            return self.cleaned_data
+        raise forms.ValidationError("Wrong password.")
 
 
 class AddLotForm(forms.ModelForm):
@@ -70,8 +103,3 @@ class CommentForm(forms.ModelForm):
         data = self.cleaned_data
         if data.get('content') is None:
             self.add_error('content', 'Empty comment')
-
-
-    # def form_valid(self, form):  # хуйня вроде можно удалить
-    #     form.instance.user = self.request.user
-    #     return super(AddLotForm, self).form_valid(form)

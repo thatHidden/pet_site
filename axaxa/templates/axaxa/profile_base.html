@@ -1,0 +1,15 @@
+{% extends "axaxa/base.html" %}
+
+{% block content %}
+<div class="profile-nav">
+    <a href="{% url 'profile' %}">I'm</a>
+    <a href="{% url 'profile_lots' %}">My lot's</a>
+    <a href="{% url 'profile_bids' %}">My bid's</a>
+    <a href="">Security</a>
+    <a href="{% url 'profile_contact' %}">Contact info</a>
+</div>
+
+    {% block profile_content %}
+        {% endblock %}
+
+{% endblock  %}

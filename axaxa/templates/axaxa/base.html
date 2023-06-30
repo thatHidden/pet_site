@@ -13,6 +13,7 @@
           {% if request.user.is_authenticated %}
           <li class="nav-auc"><a href="/addlot">START AUCTION</a></li>
           <li class="nav-lout"><a href="/logout">LOGOUT</a></li>
+              <li class="nav-lout"><a href="{% url 'profile' %}">MY ACCOUNT</a></li>
           {% else %}
           <li class="nav-reg"><a href="/register">SIGN IN</a></li>
           <li class="nav-loin"><a href="/login">LOG IN</a></li>

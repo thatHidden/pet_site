@@ -1,0 +1,16 @@
+{% extends 'axaxa/profile_base.html' %}
+
+{% block profile_content %}
+<div class="profile_contact-main">
+    <br>
+    <p> Current name: {{ request.user.first_name }}</p>
+    <p> Current email: {{ request.user.email }}</p>
+    <br>
+    <h1>Edit info:</h1>
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Save changes</button>
+    </form>
+</div>
+{% endblock %}

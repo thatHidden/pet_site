@@ -1,0 +1,9 @@
+{% extends 'axaxa/profile_base.html' %}
+
+{% block profile_content %}
+    {% for bid in bids %}
+        <a href="{% url 'post' bid.slug %}"> {{ bid.brand }} {{ bid.model }}</a>
+        <p>End time: {{ bid.time_end }}</p>
+        <br>
+    {% endfor %}
+{% endblock %}

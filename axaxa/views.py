@@ -1,7 +1,8 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.db.models import Count
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import *
 
@@ -80,6 +81,43 @@ class RegisterUser(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('home')
+
+
+@login_required
+def profile(request):
+    return render(request, 'axaxa/profile.html')
+
+
+@login_required
+def profile_bids(request):
+    context = {'bids': Cars.objects.filter(bid_holder=request.user)}
+    return render(request, 'axaxa/profile_bids.html', context=context)
+
+
+@login_required
+def profile_lots(request):
+    context = {'lots': Cars.objects.filter(user=request.user).order_by('-time_end')}
+    return render(request, 'axaxa/profile_lots.html', context=context)
+
+
+class ProfileEditInfo(FormView):
+    form_class = UpdateContactInfo
+    template_name = 'axaxa/profile_contact_info.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_success_url(self):
+        return reverse_lazy('profile')
+
+    def form_valid(self, form):  # hope it's a right way to save changes
+        user = self.request.user
+        user.first_name = form.cleaned_data['first_name']
+        user.email = form.cleaned_data['email']
+        user.save()
+        return super().form_valid(form)
 
 
 class LoginUser(LoginView):
