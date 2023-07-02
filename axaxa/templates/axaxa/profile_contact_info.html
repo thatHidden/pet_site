@@ -3,8 +3,18 @@
 {% block profile_content %}
 <div class="profile_contact-main">
     <br>
-    <p> Current name: {{ request.user.first_name }}</p>
+    {% if request.user.first_name %}
+        Current name: {{ request.user.first_name }}
+    {% else %}
+        Current name: <i> set your Name below </i>
+    {% endif %}
     <p> Current email: {{ request.user.email }}</p>
+    {% if request.user.phone_number %}
+        Current phone number: {{ request.user.phone_number }}
+    {% else %}
+        Current phone number: <i> set your phone number below </i>
+    {% endif %}
+    <br>
     <br>
     <h1>Edit info:</h1>
     <form method="POST" class="form-group">

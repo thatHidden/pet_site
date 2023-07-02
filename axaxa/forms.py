@@ -1,22 +1,59 @@
+import os
+
+from allauth.account.forms import SignupForm
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.utils.crypto import get_random_string
 
 from axaxa.models import *
 import datetime
 import pytz
 
 
-class UpdateContactInfo(forms.ModelForm):
-    first_name = forms.RegexField(max_length=10, regex=r'^[a-zA-Z]+$', label="Name", required=False)
-    email = forms.EmailField(label="Email", required=False)
-    password = forms.PasswordInput()
+class SignupForm(SignupForm):
+    """Extends base allauth sign up form"""
+    first_name = forms.RegexField(max_length=10, regex=r'^[a-zA-Z]+$', label="Name", required=True, )
 
     class Meta:
         model = User
-        fields = ['first_name', 'email', 'password']
+        field = ['first_name']
+
+
+class UpdateUserPicture(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['photo']
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_photo(self):
+        current_names = CustomUser.objects.values_list('photo', flat=True)
+        while True:
+            random_string = get_random_string(length=10)
+            if random_string not in current_names:
+                self.cleaned_data['photo'].name = random_string + '.jpg'
+                break
+        if self.user.photo.name != "default":
+            delete_path = self.user.photo.path
+            os.remove(path=delete_path)
+        return self.cleaned_data['photo']
+
+
+class UpdateContactInfo(forms.ModelForm):
+    first_name = forms.RegexField(max_length=10, regex=r'^[a-zA-Z]+$', label="Name", required=False)
+    email = forms.EmailField(label="Email", required=False)
+    phone_number = forms.CharField(max_length=15, required=False, label="Phone number")
+    password = forms.PasswordInput()
+
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'email', 'phone_number', 'password']
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,11 +71,24 @@ class UpdateContactInfo(forms.ModelForm):
             return self.user.email
         return data
 
+    def clean_phone_number(self):
+        data = self.cleaned_data.get('phone_number')
+        if data == '':
+            return self.user.phone_number
+        return data
+
     def clean(self):
         if check_password(self.cleaned_data.get('password'),
-                          User.objects.get(username=self.user.username).password):
+                          CustomUser.objects.get(username=self.user.username).password):
             return self.cleaned_data
         raise forms.ValidationError("Wrong password.")
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.phone_number = self.cleaned_data['phone_number']
+        if commit:
+            user.save()
+        return user
 
 
 class AddLotForm(forms.ModelForm):
@@ -72,29 +122,7 @@ class AddLotForm(forms.ModelForm):
     #     raise forms.ValidationError('Brand error')
 
 
-class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Name')
-    email = forms.EmailField(label='Email')
-    password1 = forms.CharField(label='Password')
-    password2 = forms.CharField(label='Repeat password')
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
-
-
-class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='Логин')
-    password = forms.CharField(label='Пароль')
-
-
 class CommentForm(forms.ModelForm):
-    # user = forms.ModelChoiceField(
-    #     widget=forms.HiddenInput(),
-    #     queryset=get_user_model().objects.all(),
-    #     disabled=True  # запрещеает редактирование пользователем
-    # )
-
     class Meta:
         model = Comment
         fields = ('content',)

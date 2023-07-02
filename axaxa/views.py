@@ -1,3 +1,4 @@
+import allauth.account.views
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -72,17 +73,6 @@ class HomeView(ListView):
         return context
 
 
-class RegisterUser(CreateView):
-    form_class = RegisterUserForm
-    template_name = 'axaxa/register.html'
-    success_url = reverse_lazy('login')
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('home')
-
-
 @login_required
 def profile(request):
     return render(request, 'axaxa/profile.html')
@@ -116,16 +106,28 @@ class ProfileEditInfo(FormView):
         user = self.request.user
         user.first_name = form.cleaned_data['first_name']
         user.email = form.cleaned_data['email']
+        user.phone_number = form.cleaned_data['phone_number']
         user.save()
         return super().form_valid(form)
 
 
-class LoginUser(LoginView):
-    form_class = LoginUserForm
-    template_name = 'axaxa/login.html'
+class ProfileEditPicture(FormView):
+    form_class = UpdateUserPicture
+    template_name = 'axaxa/profile_pic_upd.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('profile')
+
+    def form_valid(self, form):
+        user = self.request.user
+        user.photo = form.cleaned_data['photo']
+        user.save()
+        return super().form_valid(form)
 
 
 def logout_user(request):

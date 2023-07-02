@@ -1,6 +1,23 @@
 {% extends "axaxa/profile_base.html" %}
 
 {% block profile_content %}
-    {{ request.user.username }}
-    {{ request.user.email }}
+    Photo: <img  class="profile-picture" src="{{request.user.photo.url}}">
+    <a href="{%  url 'profile_pic_upd' %}">Change photo</a>
+    <br>
+    {% if request.user.first_name %}
+        Name: {{ request.user.first_name }}
+    {% else %}
+        Name: <i> set your Name in <a href="{% url 'profile_contact' %}">Contact info</a></i>
+    {% endif %}
+    <br>
+    {% if request.user.phone_number %}
+        Phone number: {{ request.user.phone_number }}
+    {% else %}
+        Phone number: <i> set your Phone number in <a href="{% url 'profile_contact' %}">Contact info</a></i>
+    {% endif %}
+    <br>
+    Email: {{ request.user.email }}
+    <br>
+    username:{{ request.user.username }}
+
 {% endblock %}

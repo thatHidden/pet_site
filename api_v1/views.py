@@ -35,7 +35,7 @@ class FindCarList(APIView):
         brand / brand and model / brand and model and max price """
     def get(self, request, brand, model=None, max_price=None):
         if model is None:
-            model.replace("_", " ")
+            brand.replace("_", " ")
             query = Cars.objects.filter(brand__iexact=brand)
         else:
             if max_price:

@@ -2,19 +2,19 @@
 {% load static %}
 
 {% block content %}
-
-    <div class="car-container">
+    <br>
+    <div class="car-block">
     <div class="car-info">
-        <h2 class="info-name"><p >{{ lot.brand }} {{ lot.model }} </p></h2>
+        <h2 class="info-name"><a href="{% url 'post' post.slug %}">{{ post.brand }} {{ post.model }} </a></h2>
         <br>
         <p class="info-gen">GEN: {{ post.generation }} </p>
-  <p class="info-desc">{{ post.description|truncatewords:75 }}</p>
+  <p class="info-desc">{{ post.description }}</p>
         <div class="info-info">
   <p class="info-time">Ends on: {{ post.time_end }}</p>
   <p class="info-bid">Bid: ${{ post.bid }}</p>
         </div>
         </div>
-{#    <img  class="car-image" src="{{post.photo.url}}">#}
+    <img  class="car-image" src="{{post.photo.url}}">
 
     </div>
 
@@ -29,7 +29,7 @@
      </form>
     {% else %}
     <div class="not-auth">
-        <a href="{% url 'login' %}">Log in</a> <span>for leave a comment</span>
+        <a href="{% url 'account_login' %}">Log in</a> <span>for leave a comment</span>
         <br>
         <br>
     </div>
