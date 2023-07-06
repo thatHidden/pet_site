@@ -53,7 +53,7 @@ class AvailableCarList(models.Model):
 
 
 class Cars(models.Model):
-    user = models.ForeignKey('axaxa.CustomUser', on_delete=models.SET_DEFAULT, default=1, related_name="lots")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_DEFAULT, default=1, related_name="lots")
     brand = models.CharField(max_length=25, null=False)
     model = models.CharField(max_length=50, null=False)
     generation = models.CharField(max_length=10, null=False)
@@ -93,7 +93,7 @@ class Cars(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Cars, on_delete=models.CASCADE)
-    user = models.ForeignKey('axaxa.CustomUser', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
     time_create = models.DateTimeField(auto_now_add=True)
 

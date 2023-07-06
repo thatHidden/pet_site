@@ -39,7 +39,7 @@ class UpdateUserPicture(forms.ModelForm):
             if random_string not in current_names:
                 self.cleaned_data['photo'].name = random_string + '.jpg'
                 break
-        if self.user.photo.name != "default":
+        if self.user.photo.name != "user_photo/default.png":
             delete_path = self.user.photo.path
             os.remove(path=delete_path)
         return self.cleaned_data['photo']

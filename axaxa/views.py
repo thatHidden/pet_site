@@ -34,19 +34,17 @@ class ShowPost(DetailView, FormView):
         return context
 
     def object(self, queryset=None):
-        # Вернуть объект модели, который соответствует указанному slug
         slug = self.kwargs.get(self.slug_url_kwarg)
         return self.model.objects.get(slug=slug)
 
     def form_valid(self, form):
         comment = form.save(commit=False)  # commit = false - пока не сохраняет запись в бд
-        comment.post = self.get_object()  # связываем поле post с текущим лотом
-        comment.user = self.request.user  # связываем комментарий с пользователем
+        comment.post = self.get_object()
+        comment.user = self.request.user
         comment.save()
         return super().form_valid(form)
 
     def get_success_url(self):
-        # Вернуть текущий URL в качестве URL после успешной отправки
         return reverse('post', kwargs={'post_slug': self.get_object().slug})
 
 
@@ -55,7 +53,9 @@ class AddLot(CreateView):
     template_name = 'axaxa/add_lot.html'
 
     def form_valid(self, form):
-        form.save()
+        lot = form.save(commit=False)
+        lot.user = self.request.user
+        lot.save()
         return redirect('home')
 
 
