@@ -71,7 +71,7 @@ class MakeBid(DetailView, FormView):
         kwargs['lot'] = self.get_object()
         return kwargs
 
-    def form_valid(self, form):  # TODO: исправить хуйню с сохранением лота (слаг)
+    def form_valid(self, form):
         bid = form.save(commit=False)
         bid.user = self.request.user
         lot = self.get_object()
