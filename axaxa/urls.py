@@ -9,7 +9,8 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('addlot/', AddLot.as_view(), name='add_lot'),
     path('out/', logout_user, name='logout'),
-    path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
+    path('lot/<slug:post_slug>/', ShowPost.as_view(), name='post'),
+    path('lot/<slug:post_slug>/bid/', MakeBid.as_view(), name='makebid'),
     path('search/<str:car>', SearchCar.as_view(), name='search'),
 
     path('register/', SignupView.as_view(), name='account_signup'),

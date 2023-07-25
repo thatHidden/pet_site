@@ -1,0 +1,23 @@
+{% extends "axaxa/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    {{ post.brand }}
+    {{ post.model }}
+    <p> Current bid: {{ post.bid }}</p>
+
+    {% if request.user.is_authenticated %}
+     <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{ form.as_p }}
+         <button type="submit" class="btn btn-success">Send</button>
+     </form>
+    {% else %}
+    <div class="not-auth">
+        <a href="{% url 'account_login' %}">Log in</a> <span>for make a bid!</span>
+        <br>
+        <br>
+    </div>
+    {% endif %}
+{% endblock %}

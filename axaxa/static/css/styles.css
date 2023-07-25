@@ -2,9 +2,17 @@ h1 {
   margin: 0;
 }
 
+textarea {
+  resize: none;
+  width: 500px;
+  height: 70px;
+  overflow: auto;
+}
+
+
 .profile-picture {
   width: 100px;
-  height: 100px;
+  height: auto;
   border-radius:50%;
   overflow:hidden;
 }
@@ -130,51 +138,6 @@ input:focus {
 
 }
 
-.search-button {
-  display: flex;
-  justify-content: center;
-  padding-top: 4.5%;
-  float: right;
-  margin-right: 2%;
-  margin-top: 1%;
-  position: relative;
-  width: 80px;
-  height: 80px;
-  border: none;
-  border-radius: 50%;
-  background-color: #ffffff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-  transition: background 0.5s ease;
-  background: rgb(2,0,36);
-  background: linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(55,55,209,1) 0%, rgba(120,232,255,1) 100%);
-}
-
-.gg-search {
-    box-sizing: border-box;
-    position: center;
-    display: flex;
-    transform: scale(var(--ggs,1));
-    width: 32px;
-    height: 32px;
-    border: 4px solid;
-    border-radius: 100%;
-    margin-right: 9%;
-    margin-top: -13%;
-}
-.gg-search::after {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    border-radius: 3px;
-    width: 4px;
-    height: 16px;
-    background: black;
-    transform: rotate(-45deg);
-    top: 20px;
-    left: 24px;
-}
 
 .footer {
     background-color: darkgray;
@@ -199,9 +162,9 @@ p::after {
   content: "";
   bottom: 0;
   right: 0;
-  height: 0.5em; /* задаем высоту псевдоэлемента */
-  width: 100%; /* задаем ширину псевдоэлемента */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%); /* задаем градиентный фон */
+  height: 0.5em;
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%);
 }
 
 p {
@@ -252,7 +215,7 @@ a {
   position: relative;
 }
 
-a:after {
+.nav a:after {
   content: '';
   display: block;
   height: 2px;
@@ -264,7 +227,7 @@ a:after {
   transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
 }
 
-a:hover:after {
+.nav a:hover:after {
   width: 100%;
   left: initial;
   left: 0;
@@ -337,7 +300,7 @@ a:hover:after {
   bottom: -50px;
 }
 
-/* Создаем анимацию */
+
 @keyframes slideIn {
   0% {
     opacity: 0;
@@ -354,16 +317,171 @@ a:hover:after {
   animation: slideIn 1s ease-out forwards;
 }
 
+.lot-info {
+  margin-left: 5vw;
+}
+
+.lot-name h1{
+  font-size: 70px;
+  margin-top: 5px;
+  font-family: 'Heebo', cursive;
+  font-weight: bold;
+}
+
+.lot-image img{
+  margin-top: 1vh;
+  width: 66vw;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.lot-bar {
+  margin-top: 1vh;
+  display: flex;
+  align-items: center;
+}
+
+.lot-bar-statistic {
+  background-color: #2E2E2E;
+  border-radius: 10px;
+}
+
+.statistic-name {
+  color: #C9C9C9;
+}
+
+.lot-bar-statistic li{
+  font-family: 'Heebo', cursive;
+  font-size: medium;
+  display: inline;
+  margin-right: 14vw;
+  color: white;
+}
+
+.bid-button {
+  margin-left: 1vw;
+background: rgb(255,217,77);
+background: linear-gradient(42deg, rgba(255,217,77,1) 0%, rgba(255,199,125,1) 48%, rgba(255,153,106,1) 100%);
+padding: 19px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  color: black;
+  font-family: 'roboto', sans-serif;
+  font-size: medium;
+}
+
+.bid-button:hover{
+  text-decoration: none;
+}
+
+.lot-specs{
+    margin-top: 2vh;
+}
+
+.lot-info-title {
+  margin-left: 10px;
+  font-family: 'Heebo', cursive;
+  font-size: large;
+  font-weight: bold;
+}
+
+.lot-specs tr:nth-child(odd) {
+  background-color: #f0f0f0;
+
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+td {
+  font-family: 'Heebo', cursive;
+  font-size: medium;
+  padding: 5px 80px 5px 20px;
+  border: #D7D7D7 1px;
+  border-style: none solid solid none;
+}
+tr:first-child td:first-child { border-top-left-radius: 10px; }
+tr:first-child td:last-child { border-top-right-radius: 10px; }
+tr:last-child td:first-child { border-bottom-left-radius: 10px; }
+tr:last-child td:last-child { border-bottom-right-radius: 10px; }
+tr:first-child td { border-top-style: solid; }
+tr td:first-child { border-left-style: solid; }
+
+.lot-comment {
+  width: 70%;
+}
+
+.lot-comment-content {
+  font-family: 'Heebo', cursive;
+  font-size: medium;
+}
+
+.comments-n-bids {
+  margin-top: 4vh;
+  margin-left: 5vw;
+}
+
 .comment {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
+  width: 45vw;
+  height: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.comment-info{
+  margin-left: 1.15vw;
 }
 
 .comment-username {
-    font-weight: bold;
+  height: 30px;
+  padding-top: 8px;
+  font-family: 'roboto', sans-serif;
+  font-weight: bold;
+  text-align: justify;
+  margin-bottom: 8px;
 }
 
 .comment-content {
-    margin-top: 5px;
+  margin-top: 5px;
+  font-family: 'roboto-regular', sans-serif;
+  font-weight: normal;
+  text-align: justify;
+}
+
+.comment-seller{
+  background-color: #404CB3;
+  border-radius: 7px;
+  padding: 5px;
+  color: #F7F7F7;
+  font-family: 'roboto-light', sans-serif;
+  font-weight: lighter;
+}
+
+.comment-time {
+  padding-left: 0.6vw;
+  color: gray;
+  font-family: 'roboto-light', sans-serif;
+  font-weight: lighter;
+  text-align: justify;
+}
+
+.comment-bid {
+  color: green;
+  font-family: 'roboto', sans-serif;
+  font-weight: normal;
+  text-align: justify;
+  margin-top: 8px;
+}
+
+.user-comment-image {
+  width: 60px;
+  height: 60px;
+  border-radius:50%;
+  overflow:hidden;
 }

@@ -2,8 +2,12 @@
 
 {% block profile_content %}
     {% for bid in bids %}
-        <a href="{% url 'post' bid.slug %}"> {{ bid.brand }} {{ bid.model }}</a>
-        <p>End time: {{ bid.time_end }}</p>
+        <a href="{% url 'post' bid.lot.slug %}"> {{ bid.lot.brand }} {{ bid.lot.model }}</a>
+        <p>End time: {{ bid.lot.time_end }}</p>
+        <p>Your bid is ${{ bid.price }}</p>
+        {% if bid.price != bid.lot.bid %}
+            <p> Highest bid is ${{ bid.lot.bid }}</p>
+        {% endif %}
         <br>
     {% endfor %}
 {% endblock %}

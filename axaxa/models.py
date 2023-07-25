@@ -77,19 +77,6 @@ class Cars(models.Model):
     def __str__(self):
         return self.brand
 
-    def save(self, *args, **kwargs):
-        """Generates unique slug"""
-        self.bid = self.start_price
-        while True:
-            characters = string.ascii_uppercase + string.digits
-            random_string = ''.join(random.choice(characters) for _ in range(4))
-            self.slug = random_string + "-" + slugify(self.brand + "-" +
-                                                      self.model + "-" +
-                                                      (self.generation if self.generation != "1" else ""))
-            if not Cars.objects.filter(slug=self.slug).exists():
-                break
-        super(Cars, self).save(*args, **kwargs)
-
 
 class Comment(models.Model):
     post = models.ForeignKey(Cars, on_delete=models.CASCADE)
@@ -103,3 +90,10 @@ class Comment(models.Model):
 
 class Reply(Comment):
     reply_to = models.ForeignKey('self', on_delete=models.CASCADE)
+
+
+class Bid(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    lot = models.ForeignKey(Cars, on_delete=models.PROTECT, related_name='bids')
+    price = models.IntegerField(validators=[MinValueValidator(0)])
+    time = models.DateTimeField(auto_now_add=True)

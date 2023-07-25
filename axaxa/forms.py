@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.utils.crypto import get_random_string
 
 from axaxa.models import *
@@ -131,3 +132,21 @@ class CommentForm(forms.ModelForm):
         data = self.cleaned_data
         if data.get('content') is None:
             self.add_error('content', 'Empty comment')
+
+
+class BidForm(forms.ModelForm):
+    price = forms.IntegerField()
+
+    class Meta:
+        model = Bid
+        fields = ('price',)
+
+    def __init__(self, lot, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.lot = lot
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price < self.lot.bid:
+            raise ValidationError("Bid is lower then expected")
+        return price

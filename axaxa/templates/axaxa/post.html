@@ -3,24 +3,82 @@
 
 {% block content %}
     <br>
-    <div class="car-block">
-    <div class="car-info">
-        <h2 class="info-name"><a href="{% url 'post' post.slug %}">{{ post.brand }} {{ post.model }} </a></h2>
+    <div class="lot-info">
+        <div class="lot-name">
+            <h1>{{ post.brand }} {{ post.model }}</h1>
+        </div>
+        <div class="lot-image">
+            <img  class="" src="{{ post.photo.url}}">
+        </div>
+        <div class="lot-bar">
+            <div class="lot-bar-statistic">
+                <ul>
+                    <li>
+                        {% if post.bid_holder %}
+                            <span class="statistic-name">Lead bid</span>
+                        {% else %}
+                            <span class="statistic-name">Start with</span>
+                        {% endif %}
+                        <span class="statistic-count">${{ post.bid }}</span>
+                    </li>
+                    <li>
+                        <span class="statistic-name">Bids</span>
+                        <span class="statistic-count">{{ bids_count }}</span>
+                    </li>
+                    <li>
+                        <span class="statistic-name">Comments</span>
+                        <span class="statistic-count">{{ comments_count }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="lot-bar-bid">
+                {% if post.user != request.user %}
+                    <a class="bid-button" href="{% url 'makebid' post.slug %}">Make a bid</a>
+                {% else %}
+                    <p class="bid-button">temp</p>
+                {% endif %}
+            </div>
+        </div>
         <br>
-        <p class="info-gen">GEN: {{ post.generation }} </p>
-  <p class="info-desc">{{ post.description }}</p>
-        <div class="info-info">
-  <p class="info-time">Ends on: {{ post.time_end }}</p>
-  <p class="info-bid">Bid: ${{ post.bid }}</p>
+        <div class="lot-specs">
+            <p class="lot-info-title">Quick facts</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="td-1">Brand</td>
+                        <td class="td-2">{{ post.brand }}</td>
+                    </tr>
+                    <tr>
+                        <td>Model</td>
+                        <td>{{ post.model }}</td>
+                    </tr>
+                    <tr>
+                        <td>Generation</td>
+                        <td>{{ post.generation }}</td>
+                    </tr>
+                    <tr>
+                        <td>Body</td>
+                        <td>{{ post.body }}</td>
+                    </tr>
+                    <tr>
+                        <td>Seller</td>
+                        <td>{{ post.user }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <br>
+        <div class="lot-comment">
+            <p class="lot-info-title">Description</p>
+            <p class="lot-comment-content">{{ post.description }}</p>
         </div>
-    <img  class="car-image" src="{{post.photo.url}}">
-
     </div>
+
 
     <div class="comments-n-bids">
 
-        <h3>Bids & comments</h3>
+
+        <p class="lot-info-title">Bids & comments</p>
     {% if request.user.is_authenticated %}
      <form method="POST" class="form-group">
             {% csrf_token %}
@@ -35,15 +93,26 @@
     </div>
     {% endif %}
 
-
     <div class="comment-section">
+
         {% for com in comments %}
             <div class="comment">
+            <img  class="user-comment-image" src="{{ com.user.photo.url}}">
             <div class="comment-info">
-            <p class="comment-username"> {{ com.user.username }}</p>
-                <p> {{ com.time_create }}</p>
-                </div>
-            <p class="comment-content"> {{ com.content }}</p>
+            <p class="comment-username"> {{ com.user.username }}
+            {% if post.user == com.user %}
+                <nobr class="comment-seller">Seller</nobr>
+            {% endif %}
+            {% if com.price %}
+                <nobr class="comment-time"> {{ com.time }}</nobr>
+                </p>
+                <p class="comment-bid">Bid ${{ com.price }}</p>
+            {% else %}
+                <nobr class="comment-time"> {{ com.time_create }}</nobr>
+                </p>
+                <p class="comment-content"> {{ com.content }}</p>
+            {% endif %}
+            </div>
             </div>
         {% endfor %}
     </div>

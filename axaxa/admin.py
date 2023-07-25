@@ -4,3 +4,5 @@ from .models import *
 admin.site.register(Cars)
 
 admin.site.register(AvailableCarList)
+
+admin.site.register(Bid)
