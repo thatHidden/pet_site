@@ -1,0 +1,85 @@
+{% extends "axaxa/base.html" %}
+
+{% block content %}
+    <div class="user-profile">
+        <div class="user-profile-block">
+            <div class="user-main">
+                <div class="user-photo-block">
+                    <img class="user-photo" src="{{ uuser.photo.url }}" alt="">
+                </div>
+                <p class="user-name"> {{ uuser.username }}</p>
+                {% if request.user.is_authenticated %}
+                    <div class="user-info">
+                        {% if uuser.phone_number %}
+                            <p class="user-contact">Phone number: {{ uuser.phone_number }}</p>
+                        {% endif %}
+                        <p class="user-contact">Email: {{ uuser.email }}</p>
+                    </div>
+                {% else %}
+                    <p class="user-contact"><a href="{% url 'account_login' %}">Log In</a> for see contact information</p>
+                {% endif %}
+            </div>
+            {% if user_runs or user_comments or user_bids %}
+                {% if user_runs %}
+                <p class="profile-title">Running auction's</p>
+                    <div class="user-auctions-block">
+                        {% for lot in user_runs %}
+                            <a href="{% url 'post' lot.slug %}">
+                                <div class="user-auction">
+                                    <img class="user-lot-photo" src="{{ lot.photo.url }}" alt="">
+                                    <div class="user-lot-info">
+                                        <p class="user-lot-name">{{ lot.brand }} {{ lot.model }}</p>
+                                        <p class="user-lot-price"> Bid <span class="user-lot-price-much">${{ lot.bid }}</span></p>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if user_bids %}
+                <p class="profile-title">Active bid's</p>
+                    <div class="user-auctions-block">
+                        {% for lot in user_bids %}
+                            <a href="{% url 'post' lot.lot.slug %}">
+                                <div class="user-auction" href="{% url 'post' lot.lot.slug %}">
+                                    <img class="user-lot-photo" src="{{ lot.lot.photo.url }}" alt="">
+                                    <div class="user-lot-info">
+                                        <p class="user-lot-name">{{ lot.lot.brand }} {{ lot.lot.model }}</p>
+                                        <p class="user-lot-price"> Bid's to <span class="user-lot-price-much">${{ lot.price }}</span></p>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if user_comments %}
+                <p class="profile-title">Recent comments</p>
+                    <div>
+                        {% for com in user_comments %}
+                            <div class="comment">
+                                <img  class="user-comment-image" src="{{ com.user.photo.url}}">
+                                <div class="comment-info">
+                                    <p class="comment-username"> {{ com.user.username }}
+                                        {% if post.user == com.user %}
+                                            <nobr class="comment-seller">Seller</nobr>
+                                        {% endif %}
+                                        <nobr class="comment-time">
+                                            {{ com.time_create }},
+                                            at lot <a href="{% url 'post' com.post.slug %}">{{ com.post.brand }} {{ com.post.model }}</a>
+                                        </nobr>
+                                    </p>
+                                    <p class="comment-content"> {{ com.content }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="eeeh-erm">
+                    <p class="erm-eeeh">There is too silent :|</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

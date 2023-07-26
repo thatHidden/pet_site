@@ -1,47 +1,24 @@
 {% extends "axaxa/base.html" %}
 
 {% block content %}
-  <div class="home-lots"><h1>Available lot 's</h1></div>
-{#<div class="home-search-save">#}
-{#    <div class="home-search">#}
-{#        <form action="/search" method="get">#}
-{##}
-{#            <input placeholder="Find any car" class="home-input" type="text" name="q">#}
-{#            <button class="search-button" type="submit"><i class="gg-search"></i></button>#}
-{#        </form>#}
-{#    </div>#}
-{#</div>#}
-
+    <div class="home-lots"><h1>Available lot 's</h1></div>
     {% for brand  in available %}
         <a href=" {% url 'search' car=brand.brand %}">{{ brand.brand }} ( {{ brand.count }} )</a>
         <br>
     {% endfor %}
     {% for lot in lots %}
     <div class="car-block">
-    <div class="car-info">
-        <h2 class="info-name"><a href="{% url 'post' lot.slug %}">{{ lot.brand }} {{ lot.model }} </a></h2>
-        <br>
-        <p class="info-gen">GEN: {{ lot.generation }} </p>
-  <p class="info-desc">{{ lot.description|truncatewords:75 }}</p>
-        <div class="info-info">
-  <p class="info-time">Ends on: {{ lot.time_end }}</p>
-  <p class="info-bid">Bid: ${{ lot.bid }}</p>
+        <div class="car-info">
+            <h2 class="info-name"><a href="{% url 'post' lot.slug %}">{{ lot.brand }} {{ lot.model }} </a></h2>
+            <br>
+            <p class="info-gen">GEN: {{ lot.generation }} </p>
+            <p class="info-desc">{{ lot.description|truncatewords:75 }}</p>
+            <div class="info-info">
+                <p class="info-time">Ends on: {{ lot.time_end }}</p>
+                <p class="info-bid">Bid: ${{ lot.bid }}</p>
+            </div>
         </div>
-        </div>
-    <img  class="car-image" src="{{lot.photo.url}}">
-
+        <img  class="car-image" src="{{lot.photo.url}}">
     </div>
     {% endfor %}
-{#  <ul>#}
-{#    {% for lot in lots %}#}
-{#      <li class="car_list"><a href="{% url 'post' lot.slug %}">{{ lot.brand }}  {{ lot.model }}</a>#}
-{#          <br>#}
-{#          Current bid {{ lot.bid }} $#}
-{#      <br>#}
-{#      End time - {{ lot.time_end }}#}
-{#      </li>#}
-{#    {% empty %}#}
-{#      <li>Нет доступных автомобилей</li>#}
-{#    {% endfor %}#}
-{#  </ul>#}
 {% endblock %}

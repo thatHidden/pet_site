@@ -167,8 +167,108 @@ p::after {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 70%);
 }
 
-p {
+.user-profile {
+  padding-top: 4vh;
+  display: flex;
+  justify-content: center;
+
+}
+
+.user-main {
+  margin: auto;
+  width: 50%;
+  justify-content: center;
+  display: grid;
+  place-items: center;
+}
+
+.user-profile-block{
+  width: 60%;
+}
+
+.user-name {
+  font-family: 'Heebo', cursive;
+  font-size: larger;
+}
+
+.user-info {
+  margin-right: 150px;
+}
+
+.user-contact{
+  font-family: 'Heebo', cursive;
+}
+
+.user-auctions-block{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+  row-gap: 40px;
+}
+
+.user-auction {
   position: relative;
+    display: inline-block;
+}
+
+
+.user-lot-photo{
+  width: 100%;
+  border-radius: 10px;
+}
+
+.user-lot-info{
+  position: absolute;
+  bottom: 2%;
+  left: 0;
+  width: 100%;
+  margin-top: 5px;
+  display: flex;
+  background-color: #2E2E2E;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 16%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-lot-info p{
+  margin: 0 5%;
+}
+
+.user-lot-name{
+  font-family: 'Heebo', cursive;
+  color: white;
+}
+
+.user-lot-price{
+  font-family: 'Heebo', cursive;
+  color: #b3b3b3;
+}
+
+.user-lot-price-much{
+  color: white;
+}
+
+.profile-title {
+  font-family: 'Heebo', cursive;
+  font-size: large;
+  font-weight: bold;
+}
+
+.user-photo-block {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #ccc;
+}
+
+.user-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .info-desc::after {
@@ -176,9 +276,9 @@ p {
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 75%; /* задаем высоту псевдоэлемента */
-  width: 100%; /* задаем ширину псевдоэлемента */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 92%); /* задаем градиентный фон */
+  height: 75%;
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 92%);
 }
 
 
@@ -484,4 +584,16 @@ tr td:first-child { border-left-style: solid; }
   height: 60px;
   border-radius:50%;
   overflow:hidden;
+}
+
+.eeeh-erm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
+
+.erm-eeeh{
+  font-family: 'Heebo', cursive;
+  color: #cccccc;
 }

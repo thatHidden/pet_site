@@ -99,7 +99,7 @@
             <div class="comment">
             <img  class="user-comment-image" src="{{ com.user.photo.url}}">
             <div class="comment-info">
-            <p class="comment-username"> {{ com.user.username }}
+            <p class="comment-username"><a href="{% url 'user' com.user.slug %}">{{ com.user.username }}</a>
             {% if post.user == com.user %}
                 <nobr class="comment-seller">Seller</nobr>
             {% endif %}

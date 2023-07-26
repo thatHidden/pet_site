@@ -31,4 +31,6 @@ urlpatterns = [
     path('profile/lots', profile_lots, name='profile_lots'),
     path('profile/bids', profile_bids, name='profile_bids'),
     path('profile/contact_info', login_required(ProfileEditInfo.as_view()), name='profile_contact'),
+
+    path('user/<slug:username>/', UserView.as_view(), name='user'),
 ]

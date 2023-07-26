@@ -17,6 +17,7 @@ class CustomUser(AbstractUser):
                               default="user_photo/default.png")
     bookmarks = models.ManyToManyField('axaxa.Cars', related_name='bookmarked_by', blank=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
+    slug = models.SlugField(unique=True)
     user_groups = models.ManyToManyField(Group, related_name='custom_users')
     user_permissions = models.ManyToManyField(
         Permission,
@@ -37,6 +38,14 @@ class CustomUser(AbstractUser):
         related_name="custom_user_set",
         related_query_name="user",
     )
+
+    def save(self, *args, **kwargs):
+        self.slug = self.username
+        super(CustomUser, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('post', kwargs={'slug': self.slug})
+
 
 
 class AvailableCarList(models.Model):

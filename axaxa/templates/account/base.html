@@ -3,29 +3,29 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-  <title> {% block title %}Доступные автомобили{% endblock %}</title>
+    <title> {% block title %}Доступные автомобили{% endblock %}</title>
 </head>
 <body>
 <div class="head-head">
-<div class="nav">
-      <ul>
-        <li class="nav-home"><a href="{% url 'home' %}">HOME</a></li>
-          {% if request.user.is_authenticated %}
-          <li class="nav-auc"><a href="{% url 'add_lot' %}">START AUCTION</a></li>
-          <li class="nav-lout"><a href="{% url 'logout' %}">LOGOUT</a></li>
-              <li class="nav-lout"><a href="{% url 'profile' %}">MY ACCOUNT</a></li>
-          {% else %}
-          <li class="nav-reg"><a href="{% url 'account_signup' %}">SIGN UP</a></li>
-          <li class="nav-loin"><a href="{% url 'account_login' %}">LOG IN</a></li>
-          {% endif %}
-      </ul>
+    <div class="nav">
+        <ul>
+            <li class="nav-home"><a href="{% url 'home' %}">HOME</a></li>
+            {% if request.user.is_authenticated %}
+                <li class="nav-auc"><a href="{% url 'add_lot' %}">START AUCTION</a></li>
+                <li class="nav-lout"><a href="{% url 'logout' %}">LOGOUT</a></li>
+                <li class="nav-lout"><a href="{% url 'profile' %}">MY ACCOUNT</a></li>
+            {% else %}
+                <li class="nav-reg"><a href="{% url 'account_signup' %}">SIGN UP</a></li>
+                <li class="nav-loin"><a href="{% url 'account_login' %}">LOG IN</a></li>
+            {% endif %}
+        </ul>
+    </div>
 </div>
-</div>
-  <main>
+<main>
     {% block content %}{% endblock %}
-  </main>
-  <footer class="footer">
+</main>
+<footer class="footer">
     <p>&copy; 2023 Salim Customs</p>
-  </footer>
+</footer>
 </body>
 </html>

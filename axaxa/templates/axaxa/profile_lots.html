@@ -1,9 +1,9 @@
 {% extends 'axaxa/profile_base.html' %}
 
 {% block profile_content %}
-{% for lot in lots %}
-    <a href="{% url 'post' lot.slug %}"> {{ lot.brand }} {{ lot.model }}</a>
-    <p>End time: {{ lot.time_end }}</p>
-    <br>
+    {% for lot in lots %}
+        <a href="{% url 'post' lot.slug %}"> {{ lot.brand }} {{ lot.model }}</a>
+        <p>End time: {{ lot.time_end }}</p>
+        <br>
     {% endfor %}
 {% endblock %}
