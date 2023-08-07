@@ -47,7 +47,6 @@ class CustomUser(AbstractUser):
         return reverse('post', kwargs={'slug': self.slug})
 
 
-
 class AvailableCarList(models.Model):
     brand = models.CharField(max_length=25, null=False)
     model = models.CharField(max_length=50, null=False)
@@ -74,7 +73,8 @@ class Cars(models.Model):
     bid = models.IntegerField(null=True)
     bid_holder = models.ForeignKey('axaxa.CustomUser', on_delete=models.PROTECT, null=True, related_name="bids")
     is_active = models.BooleanField(default=True)
-    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото", null=True)
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото", null=True,
+                              default="photos/default.png")
     slug = models.SlugField(max_length=255, unique=False, db_index=True, verbose_name="URL")
 
     class Meta:

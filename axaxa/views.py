@@ -1,4 +1,4 @@
-from django.contrib.auth import  logout
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Subquery, OuterRef
 from django.shortcuts import redirect, render
@@ -114,6 +114,7 @@ class HomeView(ListView):
         context['available'] = Cars.objects.values('brand').annotate(count=Count('id')).order_by('brand')
         return context
 
+
 class UserView(DetailView):
     model = CustomUser
     context_object_name = 'uuser'
@@ -127,15 +128,10 @@ class UserView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_runs'] = Cars.objects.filter(user=self.get_object())
-
         subquery = Bid.objects.filter(lot=OuterRef('lot'), user=self.get_object()).order_by('-id')
         context['user_bids'] = Bid.objects.filter(id=Subquery(subquery.values('id')[:1]))
-
-        #TODO: для каждого лота найти наивысшую ставку и колечесвто ставок
         context['user_comments'] = Comment.objects.filter(user=self.get_object())
         return context
-
-
 
 
 @login_required
